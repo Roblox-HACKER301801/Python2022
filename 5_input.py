@@ -33,8 +33,27 @@ print(f"You will be {age + 10} in 10 years.")
 #14
 print(f"You have been born in {2022 - age}.") 
 #15
-apples = int(input("How many apples (I-Apple™) Security products do you own?")) 
+apples = int(input("How many apples (I-Apple™) Security products do you own?\n")) 
 #16
-friends = int(input("How many friends do you have added via I-Apple™ Security products?")) 
+friends = int(input("How many friends do you have added via I-Apple™ Security products?\n")) 
 #17
-print(f"You can successfully share {friends / apples} between you and your friends and should have ")
+print(f"You can successfully share {friends / apples} between you and your friends.")
+#18
+pizza = int(input("How many pizzas do you want? You are using the I-Apple™ Secured connnection services\n")) 
+#19
+people = int(input("How many people do you intend to share these pizzas with?\n"))
+#20
+print(f"TIP: You would be able to share {pizza+people/8} exact slices")
+#21
+money = int(input("What is your current I-Apple™ balance in ($)\n"))
+#22
+tv = int(input("How much does a tv you want cost?\n"))
+#23
+print(f"You would have ${money-tv} remaining in your account after you purchase it. \n if you have a low balance then you will be indept to I-Apple™.") 
+#24
+print(f"TIP: You can wait 2 weeks and the TV that you have mentioned will get a 20% discount, curtosey of I-Apple™ Security team.\n the new cost would be ${tv*0.8}.")
+#25
+bitcoin = int(input("How many bitcoin do you own?")) 
+#26
+coin = 64624.62
+#27
