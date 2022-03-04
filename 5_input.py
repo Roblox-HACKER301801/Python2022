@@ -43,6 +43,7 @@ pizza = int(input("How many pizzas do you want? You are using the I-Apple™ Sec
 #19
 people = int(input("How many people do you intend to share these pizzas with?\n"))
 #20
+
 print(f"TIP: You would be able to share {pizza+people/8} exact slices")
 #21
 money = int(input("What is your current I-Apple™ balance in ($)\n"))
