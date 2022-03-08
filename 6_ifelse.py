@@ -37,27 +37,40 @@ else:
 	print("WRONG, Mel Gibson had directed the movie!")
 """
 #7
-score = 0 
+score = 1
 print("Welcome to the CCP quiz, Answer these 5 questions to increase your social credit score from 0 to 5! You are being monitored while doing this quiz.") 
-question_1 = input("What do you think about the party? Describe it in one word.") 
-if question_1 == "Good" or question_1 == "good":
+question_1 = input("What do you think about the party? Describe it in one word.\n") 
+if question_1 == "Good" or question_1 == "good" or question_1 == "Great" or question_1 == "great":
 	score= score + 1
 	print(f"Good answer you have increased your score by 1, New score: {score}") 
 else:
 	score= score - 1
 	print(f"You are incorrect. No new score. Your score is now: {score}")
-question_2 = input("Question 2:\n Are you an active person of the party?")
+question_2 = input("Question 2:\n Are you an active person of the party?\n")
 if question_2 == "Yes" or question_2 == "yes":
 	score= score + 1
 	print(f"Correct answer. Your score is now: {score}")
 else:
 	score= score - 1
 	print(f"You are wrong, score has been decreased by 1. New score: {score}")  
-question_3 =int(input("Question 3:\n How many hours have you worked in the past 2 weeks?"))
-if question_3 >= 12:
+question_3 =int(input("Question 3:\n How many hours have you worked in the past 2 weeks?\n"))
+if question_3 <= 12:
 	score= score - 1
 	print(f"You have worked for a very low amount of hours. Unacceptable. \n New credit score: {score}")
 else:
 	score= score +1
 	print(f"Correct answer, Your hard work has been noted")	
-#finish off.
+question_4 = input("Question 4:\n What do you think of the new game \"Lao gon gon RUN?\n")
+if question_4 == "Good" or question_4 == "good":
+	score= score + 1
+	print(f"You have the best taste within the glorious china")
+else:
+	score= score - 1
+	print(f"You don't know what is a good game.") 
+final_score = input("Your final results are being tolled. Press \"enter\" and your results will be revealed")
+if score >= 4:
+	print(f"You've done exceptionally well, your credit score has been increased\n Final score: {score}")
+elif score == 3:
+	print(f"You've done alright, except its just average. \n Final score: {score}") 
+else:
+	print(f"Unfortunately, your score has been very, very low. For this reason, your new education will be at \n Facility-019 \n Your final score: {score}")
