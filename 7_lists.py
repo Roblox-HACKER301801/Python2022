@@ -14,7 +14,6 @@ song.append("[庄学忠] 懂你 -- 新民歌红 ")
 song.append("The red sun in our hearts")
 song.append("Discord call sound 10 hours")
 #5
-"""
 book = []
 book.append(input("Please give me a name of a book\n"))
 book.append(input("Please give me a name of a book\n"))
@@ -22,7 +21,6 @@ book.append(input("Please give me a name of a book\n"))
 book.append(input("Please give me a name of a book\n"))
 book.append(input("Please give me a name of a book\n"))
 print(book)
-"""
 #6
 print("Hi, welcome to Ice Cream Maker")
 order_complete = False
@@ -36,7 +34,7 @@ while order_complete == False:
 		print("You already have that topping")
 	else: 
 		print("Great, adding it to the list")
-toppings_list.append(topping)
+		toppings_list.append(topping)
 
 print("Here are your toppings")
 

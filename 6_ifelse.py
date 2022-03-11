@@ -1,5 +1,4 @@
 #1
-"""
 icecream = int(input("How many ice-creams do you want?\n")) 
 if icecream <=10: 
 	print(f"You have ordered {icecream}, they should be read in 4 minutes")
@@ -35,7 +34,6 @@ if mel_gibson == "Mel Gibson" or mel_gibson == "mel gibson":
 	print("Correct")
 else:
 	print("WRONG, Mel Gibson had directed the movie!")
-"""
 #7
 score = 1
 print("Welcome to the CCP quiz, Answer these 5 questions to increase your social credit score from 0 to 5! You are being monitored while doing this quiz.") 
