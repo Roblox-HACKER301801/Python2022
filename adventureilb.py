@@ -1,24 +1,65 @@
+#import all the functions from adventurelib
 from adventurelib import *
 
 
 
-@when("brush teeth")
-def brush_teeth():
-	print("You brush your teeth") 
+#rooms
+space = Room(""" You are drifting in space. You see a space ship""")
+airlock = Room("You are in an airlock") 
+cargo = Room("You are in the cargo bay")
+docking = Room("You are in the docking bay") 
+hallway = Room("You are in a hallway")
+bridge = Room("You are at the bridge. There is a body here") 
+quaters = Room("You are in the main quaters. There is a locker.") 
+mess_hall = Room("You are at a messey hall")
+escape_pods = Room("You are at the escape pods")
 
+#room connections
+docking.west = cargo
+hallway.north = cargo
+hallway.east = bridge
+hallway.south = mess_hall
+hallway.west = airlock
+bridge.south = escape_pods 
+mess_hall.west = quaters 
+quaters.north = airlock
 
-@when("Pick up keycard") 
-def key():
-	print("You pick up the keycard.")
+#binds
+@when("jump")
+def jump():
+	print("You jump")
 
 
-room510 = Room("""
-	You wake up in the same room which you have for the past 30 years, same old room given to you by the state. 
-	You lie on your bed. Awaiting the same set of things to happen.""")
+@when("enter airlock")
+@when("enter spaceship") 
+@when("enter ship") 
+def enter_airlock():
+	global current_room
+	if current_room == space:
+		print("You haul yourself into the airlock")
+		current_room = airlock
+	else: 
+		print("There is no airlock here.") 
+	print(current_room)
+@when("go DIRECTION")
+@when("travel DIRECTION")
+def travel(direction):
+	global current_room
+	if direction in current_room.exits():
+		#checks if the current room list of exits has 
+		#the direction the player wants to go
+		current_room = current_room.exit(direction)
+		print(f"You go {direction}")
+		print(current_room)
+	else:
+		print("You can't go that way") 
+@when("look")
+def look():
+	print(current_room)
+	print(current_room.exits())
 
-lobby = Room("""
-	You enter the lobby, the buzz of the lights above fill the silence within the room and you look around. 
-	To your left, a corridor to the toilets, to your right, elevator systems.""")
+#variables
+current_room = space
 
 
 
@@ -41,261 +82,13 @@ lobby = Room("""
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#EVERYTHING GOES ABOVE HERE - DO NOT CHANGE 
+#ANYTHING BELOW THIS LINE
+#the main function
 def main():
+	print(current_room)
 	start()
-
+#start the main loop
 
 if __name__ == '__main__':
 	main()
