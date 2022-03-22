@@ -13,14 +13,14 @@ Room.item = Bag()
 #Define Rooms
 ######################
 mainoffice = Room("""Your inside a gloomy lobby to the tower that you work at. The smell of plastic fills your nose. """)
-elevatortwo = Room("""You've entered the elevator, all you see is a greasy set of dails and a Mao Zedong poster""")
+elevatortwo = Room("""You've entered the elevator, all you see is a greasy set of dails and a Mao Zedong poster, The access reader glows red. You need a keycard.""")
 elevatorthree = Room("""You enter another elevator to the floor above yours. The faint radio filled with chinese propaganda fills the room.""")
 
 washrooms = Room("""You enter a bathroom stall. It smells awful and all there is to fill in the darkness are some Mao
-zedong propaganda, You see a keycard near one of the sinks.""")
-officeroom = Room("""A room filled with computers and desks. """)
+zedong propaganda, You see an elevator keycard near one of the sinks.""")
+officeroom = Room("""A room filled with computers and desks.""")
 administrationblock = Room("""A small room with a single desk and computer on it. Seems quite valuable
-since it has warning sign on it""")
+since it has warning sign on it, You also see an admin keycard on the desk""")
 #overseers office part:
 ovreceptiondesk = Room("""You enter  room which contains a computer and a seat. Nicely named \"Overseers reception\".""")
 ovoffice = Room("""You enter the huge room, the only one with some sort of design, its got a casset player, and the most modern
@@ -62,17 +62,24 @@ easteregg.description = "You say the word \"easter\" and feel something in your 
 maobar = Item("mao bar","Mao Bar", "Chocolate", "chocolate", "choco", "Choco")
 maobar.description = "A small bar of chocolate with Mao zedong's face on it. Ingrediants: LSD, Cocaine, Lean, p, weed, chocolate mix, flour, sugar, baking soda, vinahe, plastic, acid, more lean."
 
+maopro = Item("propaganda", "poster")
+maopro.description = "A poster with Mao zedong's massive face glearing back at you. Under the face it says \"For china!\""
+
+notepad = Item("Note", "note", "notepad", "Notepad")
+notepad.description = "A notepad with most of the pages scribbled with unreadable chinese. One of it says \"EVACUATION: Due to multiple riots, all personnel are to evacuate via the main enterance.\""
 ######################
 #Add Items to Bags
 ######################
 washrooms.item.add(eleaccesskey)
 executiveoffice.item.add(maobar)
-
+mainoffice.item.add(notepad) 
+administrationblock.item.add(adminaccesskey)
 ######################
 #Define any variables
 ######################
 current_room = mainoffice
 inventory = Bag()
+used_elekeycard = False
 ######################
 #Binds (eg “@when(“look”))
 ######################
@@ -119,6 +126,33 @@ def get_item(item):
 		print(f"You picked up the {item}") 
 	else:
 		print(f"You can't see a {item}") 
+
+@when("inventory")
+def inventory_look():
+	print("you have")
+	for item in inventory:
+		print(item)
+
+@when("use ITEM")
+def use(item):
+	if inventory.find(item) and inventory.find(item)==eleaccesskey and current_room == elevatortwo or elevatorthree:
+		print("You flick the elevator key against the reader. It beeps twice and all the dails become green.")
+		print("The level two dail glows green and sends you up to the next level.") 
+		used_elekeycard = True
+	if inventory.find(item) and inventory.find(item)==maobar:
+		print("You tear the wrapper and see the chocolate, ingraved is mao zedongs face. You snap a piece off and slowly chew it.")
+		print("It's disgusting but you fight through the disgusting taste.") 
+	else:
+		print("You can't use that here")
+"""
+@when("use elevator")
+def use_elevator():
+	if used_elekeycard == True:
+		print("You press the number two key, and the elevator takes you up.")
+	else:
+		print("You don't have access to use this elevator.")
+"""
+#leave for later
 ######################
 #Main Function
 ######################
