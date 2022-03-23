@@ -20,7 +20,7 @@ washrooms = Room("""You enter a bathroom stall. It smells awful and all there is
 zedong propaganda, You see an elevator keycard near one of the sinks.""")
 officeroom = Room("""A room filled with computers and desks.""")
 administrationblock = Room("""A small room with a single desk and computer on it. Seems quite valuable
-since it has warning sign on it, You also see an admin keycard on the desk""")
+since it has warning sign on it, You also see an admin keycard on the desk and an executive elevator keycard.""")
 #overseers office part:
 ovreceptiondesk = Room("""You enter  room which contains a computer and a seat. Nicely named \"Overseers reception\".""")
 ovoffice = Room("""You enter the huge room, the only one with some sort of design, its got a casset player, and the most modern
@@ -35,10 +35,15 @@ with the chinese insigmia on the side of it.""")
 ######################
 mainoffice.north = elevatortwo
 mainoffice.east = washrooms
+"""
 elevatortwo.north = administrationblock
+"""
 administrationblock.west = officeroom
 administrationblock.north = elevatorthree
+
+"""
 elevatorthree.north = ovreceptiondesk
+"""
 ovreceptiondesk.east = executiveoffice
 ovreceptiondesk.north = hallway
 hallway.north = ovoffice
@@ -67,6 +72,10 @@ maopro.description = "A poster with Mao zedong's massive face glearing back at y
 
 notepad = Item("Note", "note", "notepad", "Notepad")
 notepad.description = "A notepad with most of the pages scribbled with unreadable chinese. One of it says \"EVACUATION: Due to multiple riots, all personnel are to evacuate via the main enterance.\""
+
+exelevatorkey = Item("Executive Elevator Key", "executive elevator key", "Executive Keycard", "Executive Keycard")
+exelevatorkey.description = "A black keycard with the insigmia of the CCP on one side, and the words \"EXECUTIVE ELEVATOR\""
+
 ######################
 #Add Items to Bags
 ######################
@@ -74,12 +83,15 @@ washrooms.item.add(eleaccesskey)
 executiveoffice.item.add(maobar)
 mainoffice.item.add(notepad) 
 administrationblock.item.add(adminaccesskey)
+ovoffice.item.add(ovacesskey)
+officeroom.item.add(exelevatorkey)
 ######################
 #Define any variables
 ######################
 current_room = mainoffice
 inventory = Bag()
 used_elekeycard = False
+used_exelevatorkey = False
 ######################
 #Binds (eg “@when(“look”))
 ######################
@@ -135,15 +147,32 @@ def inventory_look():
 
 @when("use ITEM")
 def use(item):
-	if inventory.find(item) and inventory.find(item)==eleaccesskey and current_room == elevatortwo or elevatorthree:
+	global current_room
+	if inventory.find(item) and inventory.find(item)==eleaccesskey and current_room == elevatortwo:
 		print("You flick the elevator key against the reader. It beeps twice and all the dails become green.")
-		print("The level two dail glows green and sends you up to the next level.") 
+		print("The level two dail glows green and sends you up to the next level, You step out")
+		current_room = administrationblock
+		print(current_room)
 		used_elekeycard = True
-	if inventory.find(item) and inventory.find(item)==maobar:
+	elif inventory.find(item) and inventory.find(item)==exelevatorkey and current_room == elevatorthree:
+		print("You flick the elevator key against the reader. It beeps twice and all the dails become green.")
+		print("The level three button glows green and the elevator starts moving upward.")
+		used_exelevatorkey = True
+		current_room = ovreceptiondesk
+		print(current_room)
+	elif inventory.find(item) and inventory.find(item)==maobar:
 		print("You tear the wrapper and see the chocolate, ingraved is mao zedongs face. You snap a piece off and slowly chew it.")
-		print("It's disgusting but you fight through the disgusting taste.") 
+		print("It's disgusting but you fight through it, However, you start foaming in the mouth and slowly your breathing stops.")
+		print("You lost! Cause of death: over-dose of multiple illegal substances.")
+		quit()
 	else:
 		print("You can't use that here")
+
+@when("look at ITEM")
+def look_at_item(item):
+	if item in inventory:
+		print(inventory.find(item).description)
+
 """
 @when("use elevator")
 def use_elevator():
