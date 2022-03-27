@@ -12,21 +12,19 @@ Room.item = Bag()
 ######################
 #Define Rooms
 ######################
-print("""READ THIS: You are playing a game about china and the secrets that need to be uncovered, to win you need to reach the overseer office,
-	and take the helicopter to win. If you see an \"Elevator Keycard\" you can shorten the name to just \"E K\" To search a room say \"search\", and press \"enter\" to do any command.""")
+print("""READ THIS: You are playing a game about china and the secrets that need to be uncovered, to win you need to reach the overseer office, \nand take the helicopter to win. If you see an \"Elevator Keycard\" you can shorten the name to just \"E K\" To search a room say \"search\", and press \"enter\" to do any command.""")
 mainoffice = Room("""Your inside a gloomy lobby to the tower that you work at. The smell of plastic fills your nose. """)
 elevatortwo = Room("""You've entered the elevator, all you see is a greasy set of dails and a Mao Zedong poster, The access reader glows red. You need a keycard.""")
 elevatorthree = Room("""You enter another elevator to the floor above yours. The faint radio filled with chinese propaganda fills the room. You need an executive elevator key to use the elevator.""")
-
 washrooms = Room("""You enter a bathroom stall. It smells awful and all there is to fill in the darkness are some Mao
 zedong propaganda.""")
-officeroom = Room("""A room filled with computers and desks. Looks like some sort of executive elevator keycard on one of the desks.""")
+officeroom = Room("""A room filled with computers and desks.""")
 administrationblock = Room("""A small room with a single desk and computer on it. Seems quite valuable
 since it has warning sign on it.""")
 #overseers office part:
 ovreceptiondesk = Room("""You enter  room which contains a computer and a seat. Nicely named \"Overseers reception\".""")
 ovoffice = Room("""You enter the huge room, the only one with some sort of design, its got a casset player, and the most modern
-pc setup, and a massive painting of Mao zedong on the wall.""")
+pc setup, and a massive painting of Mao zedong on the wall. And a laptop on one of desks.""")
 hallway = Room("""You enter a well-lit hallway with pictures of Mao-Zedong to both sides of your vision. Two double doors are at the end of the hallway.""")
 executiveoffice = Room("""You enter a more brighter room, within it are multiple smaller cubicals.""")
 executivebathroom = Room("""You enter a stylish bathroom, A nice smooth smell of fresh air """)
@@ -37,20 +35,10 @@ with the chinese insigmia on the side of it.""")
 ######################
 mainoffice.north = elevatortwo
 mainoffice.east = washrooms
-"""
-elevatortwo.north = administrationblock
-"""
 administrationblock.west = officeroom
 administrationblock.north = elevatorthree
-
-"""
-elevatorthree.north = ovreceptiondesk
-"""
 ovreceptiondesk.east = executiveoffice
 ovreceptiondesk.north = hallway
-"""
-hallway.north = ovoffice
-"""
 ovoffice.east = executivebathroom
 ovoffice.west = helicopter
 ######################
@@ -62,7 +50,7 @@ eleaccesskey.description = "The keycard with a bold text \"elevator\" on its sid
 adminaccesskey = Item("admin keycard", "admin Keycard", "A K", "Administration Keycard")
 adminaccesskey.description = "A keycard with a bold text \"admin\" on its side"
 
-ovacesskey = Item("overseer keycard", "ov keycard", "overseer Keycard", "ov Key")
+ovacesskey = Item("overseer keycard", "ov keycard", "overseer Keycard", "ov Key","O K")
 ovacesskey.description = "A keycard with a bold text \"overseer\" on its side, with a text on its other side being \"ACCESS TO EVERYTHING\""
 
 maobar = Item("mao bar","Mao Bar", "Chocolate", "chocolate", "choco", "Choco")
@@ -80,7 +68,8 @@ exelevatorkey.description = "A black keycard with the insigmia of the CCP on one
 helicopterkey = Item("Helicopter Key", "helicopter key", "chopper", "H K")
 helicopterkey.description = "A metallic key with the keychain saying \"HELICOPTER\"."
 
-
+pin = Item("pin","code","Pin","Code")
+pin.description = "A small laminated card with the numbers \"50199\" on them... Looks useful."
 ######################
 #Add Items to Bags
 ######################
@@ -91,6 +80,8 @@ administrationblock.item.add(adminaccesskey)
 ovoffice.item.add(ovacesskey)
 officeroom.item.add(exelevatorkey)
 elevatortwo.item.add(maopro)
+executiveoffice.item.add(pin)
+executivebathroom.item.add(helicopterkey)
 ######################
 #Define any variables
 ######################
@@ -100,6 +91,7 @@ used_elekeycard = False
 used_exelevatorkey = False
 used_adminaccesskey = False
 used_helicopterkey = False
+used_pin = False
 ######################
 #Binds (eg “@when(“look”))
 ######################
@@ -195,7 +187,19 @@ def use(item):
 		print("It's disgusting but you fight through it, However, you start foaming in the mouth and slowly your breathing stops.")
 		print("You lost! Cause of death: over-dose of multiple illegal substances.")
 		quit()
+	elif inventory.find(item) and inventory.find(item)==pin:
+		print("You enter the pin into the laptop.")
+		print("The computer beeps and opens a recent document which reads:")
+		print("\"INCIDENT599\"\nThe Tiananmen Square protests, known as the June Fourth Incident (Chinese: 六四事件; pinyin: liùsì shìjiàn) in China, were student-led demonstrations held in Tiananmen Square, Beijing during 1989.\nIn what is known as the Tiananmen Square Massacre (Chinese: 天安门大屠杀; pinyin: Tiān'ānmén dà túshā),\ntroops armed with assault rifles and accompanied by tanks fired at the demonstrators and those trying to block the military's advance into Tiananmen Square.\nThe protests started on 15 April and were forcibly suppressed on 4 June when the government declared martial law and sent the People's Liberation Army to occupy parts of central Beijing.\nEstimates of the death toll vary from several hundred to several thousand, with thousands more wounded.\nThe popular national movement inspired by the Beijing protests is sometimes called the '89 Democracy Movement (Chinese: 八九民运; pinyin: Bājiǔ mínyùn) or the Tiananmen Square Incident (Chinese: 天安门事件; pinyin: Tiān'ānmén shìjiàn).")
+		print("Note from Overseer: \"All personnel are to evacuate all buildings in case of an emergency protest from the Tianamen anti-communist party. Tianamen Square protests are to be renamed to the \'Picnic Incident\'.")
+		used_pin = True
+	elif inventory.find(item) and inventory.find(item)==helicopterkey and current_room == helicopter:
+		print("You open the helicopter with the key and enter the cockpit, you flick some switches and start the motor.")
+		print("The helicopter slowly rises and when you look back you see a team of chinese military run out of the office and attempt to shoot you down.")
+		print("You fly off into the distance. You win!.")
+		quit()
 	else:
+
 		print("You can't use that here")
 
 
