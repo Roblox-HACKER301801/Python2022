@@ -12,7 +12,7 @@ Room.item = Bag()
 ######################
 #Define Rooms
 ######################
-print("""READ THIS: You are playing a game about china and the secrets that need to be uncovered, to win you need to reach the overseer office, \nand take the helicopter to win. If you see an \"Elevator Keycard\" you can shorten the name to just \"E K\" To search a room say \"search\", and press \"enter\" to do any command.""")
+print("""READ THIS: You are playing a game about china and the secrets that need to be uncovered, to win you need to reach the overseer office, \nand take the helicopter to win. If you see an \"Elevator Keycard\" you can shorten the name to just \"E K\" To search a room say \"search\", and press \"enter\" to do any command.\n If the name is longer than two words, e.g Executive Elevator Keycard, do \"E E K\"""")
 mainoffice = Room("""Your inside a gloomy lobby to the tower that you work at. The smell of plastic fills your nose. """)
 elevatortwo = Room("""You've entered the elevator, all you see is a greasy set of dails and a Mao Zedong poster, The access reader glows red. You need a keycard.""")
 elevatorthree = Room("""You enter another elevator to the floor above yours. The faint radio filled with chinese propaganda fills the room. You need an executive elevator key to use the elevator.""")
@@ -201,6 +201,15 @@ def use(item):
 	else:
 
 		print("You can't use that here")
+
+@when("use elevator")
+def elevator():
+	floor = input("Which floor?\n>")
+	if current_room == administrationblock and floor == "1":
+		print("You flick the elevator key against the reader. It beeps twice and all the dails become green.")
+		print("The level two dial glows green and sends you up to the next level, You step out")
+		current_room = mainoffice
+	elif current_room == mainoffice and floor == "0"
 
 
 @when("look at ITEM")
