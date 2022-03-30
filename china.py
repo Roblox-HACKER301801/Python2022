@@ -87,11 +87,13 @@ executivebathroom.item.add(helicopterkey)
 ######################
 current_room = mainoffice
 inventory = Bag()
+"""
 used_elekeycard = False
 used_exelevatorkey = False
 used_adminaccesskey = False
 used_helicopterkey = False
 used_pin = False
+"""
 ######################
 #Binds (eg “@when(“look”))
 ######################
@@ -182,6 +184,7 @@ def use(item):
 		current_room = ovoffice
 		print(current_room) 
 		used_adminaccesskey = True
+	
 	elif inventory.find(item) and inventory.find(item)==maobar:
 		print("You tear the wrapper and see the chocolate, ingraved is mao zedongs face. You snap a piece off and slowly chew it.")
 		print("It's disgusting but you fight through it, However, you start foaming in the mouth and slowly your breathing stops.")
@@ -198,18 +201,39 @@ def use(item):
 		print("The helicopter slowly rises and when you look back you see a team of chinese military run out of the office and attempt to shoot you down.")
 		print("You fly off into the distance. You win!.")
 		quit()
+	elif item == "elevator":
+
+		floor = input("Which floor?\n>")
+		if current_room == administrationblock and floor == "0":
+			print("You flick the elevator key against the reader. It beeps twice and all the dails become green.")
+			print("The level two dial glows green and sends you down to the next level, You step out")
+			current_room = mainoffice
+			print(current_room)
+		elif current_room == mainoffice and floor == "1":
+			print("You flick the elevator key against the reader and select the first floor.")
+			print("The elevator starts moving up. It beeps twice and you step out when the doors open.")
+			current_room = administrationblock
+			print(current_room)
+		elif current_room == mainoffice and floor == "2":
+			print("You flick the elevator key against the reader. It beeps twice and all the dails become green.")
+			print("The level two dial glows green and sends you up to the next level, You step out")
+			current_room = ovreceptiondesk
+			print(current_room)
+		elif current_room == ovreceptiondesk and floor == "1":
+			print("You flick the elevator key against the reader and select the first floor.")
+			print("The elevator starts moving up. It beeps twice and you step out when the doors open.")
+			current_room = administrationblock
+			print(current_room)
+		elif current_room not in [administrationblock,mainoffice,ovreceptiondesk]:
+			print("There is no elevator here")
+		else:
+			print("Your on that floor already, or that floor does not exist.")
+	
 	else:
 
 		print("You can't use that here")
 
-@when("use elevator")
-def elevator():
-	floor = input("Which floor?\n>")
-	if current_room == administrationblock and floor == "1":
-		print("You flick the elevator key against the reader. It beeps twice and all the dails become green.")
-		print("The level two dial glows green and sends you up to the next level, You step out")
-		current_room = mainoffice
-	elif current_room == mainoffice and floor == "0"
+
 
 
 @when("look at ITEM")
