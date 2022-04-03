@@ -86,6 +86,8 @@ def havemao():
 	inventory.add(maobar)
 	print("You feel like something is in your inventory.") 
 
+
+
 @when("end it")
 def endit():
 	print("You take the cyanide pill that you've brang.")
@@ -107,6 +109,7 @@ def enter_washrooms():
 	print(current_room)
 
 
+
 @when("go DIRECTION")
 @when("travel DIRECTION")
 def travel(direction):
@@ -119,6 +122,7 @@ def travel(direction):
 		print("You can't just go through walls.") 
 
 
+
 @when("search")
 def search():
 	print(current_room)
@@ -127,6 +131,8 @@ def search():
 		print("You see:")
 		for item in current_room.item:
 			print(item)
+
+
 
 @when("get ITEM")
 @when("take ITEM")
@@ -139,11 +145,16 @@ def get_item(item):
 	else:
 		print(f"You can't see a {item}") 
 
+
+
+
 @when("inventory")
 def inventory_look():
 	print("you have")
 	for item in inventory:
 		print(item)
+
+
 
 @when("use ITEM")
 def use(item):
@@ -155,7 +166,6 @@ def use(item):
 		current_room = ovoffice
 		print(current_room) 
 		used_adminaccesskey = True
-	
 	elif inventory.find(item) and inventory.find(item)==maobar:
 		print("You tear the wrapper and see the chocolate, ingraved is mao zedongs face. You snap a piece off and slowly chew it.")
 		print("It's disgusting but you fight through it, However, you start foaming in the mouth and slowly your breathing stops.")
@@ -225,56 +235,6 @@ def look_at_item(item):
 ######################
 #Main Function
 ######################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
