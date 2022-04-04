@@ -23,7 +23,7 @@ since it has warning sign on it. There is an elevator behind you.""")
 ovreceptiondesk = Room("""You enter room which contains a computer and a seat. Nicely named \"Overseers reception\". There is an elevator behind you.""")
 ovoffice = Room("""You enter the huge room, the only one with some sort of design, its got a casset player, and the most modern
 pc setup, and a massive painting of Mao zedong on the wall. And a laptop on one of desks.""")
-hallway = Room("""You enter a well-lit hallway with pictures of Mao-Zedong to both sides of your vision. Two locked double doors are infront of you, a key is required to access the office.\nWARNING: Once you enter the office you cannot go back due to the door system, so be sure that you have everything with you.""")
+hallway = Room("""You enter a well-lit hallway with pictures of Mao-Zedong to both sides of your vision. Two locked double doors are infront of you, an admin keycard is required to access the office.\nWARNING: Once you enter the office you cannot go back due to the door system, so be sure that you have everything with you.""")
 executiveoffice = Room("""You enter a more brighter room, within it are multiple smaller cubicals.""")
 executivebathroom = Room("""You enter a stylish bathroom, A nice smooth smell of fresh air """)
 helicopter = Room("""You open the door and enter the helipad, a black bullet proof helicopter is infront of you,
@@ -81,7 +81,7 @@ used_pin = False
 #Binds (eg “@when(“look”))
 ######################
 
-@when("have the mao")
+@when("get mao bar")
 def havemao():
 	inventory.add(maobar)
 	print("You feel like something is in your inventory.") 
