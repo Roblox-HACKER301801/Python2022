@@ -87,6 +87,12 @@ def havemao():
 	print("You feel like something is in your inventory.") 
 
 
+@when("win game")
+def wingame():
+	print("You fly into the walls, get the needed information and win the game!\nYou win!, but you cheated")
+	quit()
+
+
 
 @when("end it")
 def endit():
@@ -192,36 +198,30 @@ def use(item):
 			print("You flick the elevator key against the reader. It beeps twice and all the dails become green.")
 			print("The level two dial glows green and the elevator moves, You step out when the doors open.")
 			current_room = mainoffice
-			print(current_room)
 		elif current_room == administrationblock and inventory.find("elevator key") and floor == "2":
 			print("You flick the elevator key against the reader. It beeps twice and all the dails become green.")
 			print("The level two dial glows green and the elevator moves, You step out when the doors open.")
 			current_room = ovreceptiondesk
-			print(current_room)
 		elif current_room == mainoffice and inventory.find("elevator key") and floor == "1":
 			print("You flick the elevator key against the reader and select the first floor.")
 			print("The elevator starts moving. It beeps twice and you step out when the doors open.")
 			current_room = administrationblock
-			print(current_room)
 		elif current_room == mainoffice and inventory.find("elevator key") and floor == "2":
 			print("You flick the elevator key against the reader. It beeps twice and all the dails become green.")
 			print("The level two dial glows green and sends you up to the next level, You step out")
 			current_room = ovreceptiondesk
-			print(current_room)
 		elif current_room == ovreceptiondesk and inventory.find("elevator key") and floor == "1":
 			print("You flick the elevator key against the reader and select the first floor.")
 			print("The elevator starts moving. It beeps twice and you step out when the doors open.")
 			current_room = administrationblock
-			print(current_room)
 		elif current_room == ovreceptiondesk and inventory.find("elevator key") and floor == "0":
 			print("You flick the elevator key against the reader and select the first floor.")
 			print("The elevator starts moving. It beeps twice and you step out when the doors open.")
 			current_room = mainoffice
-			print(current_room)
 		elif current_room not in [administrationblock,mainoffice,ovreceptiondesk]:
 			print("There is no elevator here")
 		else:
-			print("Your either on that floor, or the floor you've selected isn't real or you don't have the correct card in your inventory (Check \"inventory\").")
+			print("Why didnt it work? It could be because of one of these reasons:\n1. You dont have the correct access to move floors.\n2. the floor that you've selected doesnt exist.\n3. Your on that floor already.")
 	
 	else:
 
