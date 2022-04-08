@@ -3,16 +3,20 @@
 ######################
 from adventurelib import *
 import random
+import time
+import threading
 ######################
 #Define Bags
 ######################
 Room.item = Bag()
 
+#THREADS
 
 ######################
 #Define Rooms
 ######################
-print("""READ THIS: You are playing a game about china and the secrets that need to be uncovered, to win you need to reach the overseer office, \nand take the helicopter to win. If you see an \"Elevator Keycard\" you can shorten the name to just \"E K\" To search a room say \"search\", and press \"enter\" to do any command.\n If you don't have correct items and are stuck somewhere, use \"end it\".""")
+print("""READ THIS: You are playing a game about china and the secrets that need to be uncovered, to win you need to reach the overseer office, \nand take the helicopter to win.\nTIPS:\n1. use \"search\" to search the room your in.\n2. use \"end it\" if you get stuck.\n3. shorten the names of items like \"elevator keycard\" to \"e k\".""")
+print("-----------------------------------------------------------------------")
 mainoffice = Room("""Your inside a gloomy lobby to the tower that you work at. The smell of plastic fills your nose. There is also an elevator infront of you.""")
 washrooms = Room("""You enter a bathroom stall. It smells awful and all there is to fill in the darkness are some Mao
 zedong propaganda.""")
@@ -23,7 +27,7 @@ since it has warning sign on it. There is an elevator behind you.""")
 ovreceptiondesk = Room("""You enter room which contains a computer and a seat. Nicely named \"Overseers reception\". There is an elevator behind you.""")
 ovoffice = Room("""You enter the huge room, the only one with some sort of design, its got a casset player, and the most modern
 pc setup, and a massive painting of Mao zedong on the wall. And a laptop on one of desks. Looks like you need a pin to use it once.""")
-hallway = Room("""You enter a well-lit hallway with pictures of Mao-Zedong to both sides of your vision. Two locked double doors are infront of you, an admin keycard is required to access the office.\nWARNING: Once you enter the office you cannot go back due to the door system, so be sure that you have everything with you.""")
+hallway = Room("""You enter a well-lit hallway with pictures of Mao-Zedong to both sides of your vision. Two locked double doors are infront of you, an admin keycard is required to access the office.\nWARNING: Once you enter the office you cannot go back due to the door system, so be sure that you have everything with you.\nYOU SHOULD HAVE:\n-Pin\n-Admin Keycard """)
 executiveoffice = Room("""You enter a more brighter room, within it are multiple smaller cubicals.""")
 executivebathroom = Room("""You enter a stylish bathroom, A nice smooth smell of fresh air """)
 helicopter = Room("""You open the door and enter the helipad, a black bullet proof helicopter is infront of you,
@@ -43,7 +47,7 @@ ovoffice.west = helicopter
 eleaccesskey = Item("elevator key","elevator keycard","elevator Key","elevator Keycard", "E K")
 eleaccesskey.description = "The keycard with a bold text \"elevator\" on its side."
 
-adminaccesskey = Item("admin keycard", "admin Keycard", "A K", "Administration Keycard")
+adminaccesskey = Item("admin keycard", "admin Keycard", "A K", "Administration Keycard","admin key")
 adminaccesskey.description = "A keycard with a bold text \"admin\" on its side"
 
 ovacesskey = Item("overseer keycard", "ov keycard", "overseer Keycard", "ov Key","O K")
@@ -102,6 +106,11 @@ def endit():
 	quit()
 
 
+@when("desks")
+def desk():
+	if current_room == officeroom:
+		inventory.add(maobar)
+		print("You keep checking all the different desks and draws. You find something!\ncheck:\"inventory\"")
 
 @when("washrooms")
 @when("enter washrooms")  
@@ -160,7 +169,12 @@ def inventory_look():
 	for item in inventory:
 		print(item)
 
-
+def chinaman():
+	print("You hear loud banging on the door behind you, looks like the chinese have found you.")
+	time.sleep(30)
+	print("You get shot by one of the military members.")
+	print("Cause of death: Multiple gunshots.") 
+	quit()
 
 @when("use ITEM")
 def use(item):
@@ -171,6 +185,8 @@ def use(item):
 		print("You open the door and enter the officeroom.") 
 		current_room = ovoffice
 		print(current_room) 
+		th = threading.Thread(target=chinaman)
+		th.start()
 		used_adminaccesskey = True
 	elif inventory.find(item) and inventory.find(item)==maobar:
 		print("You tear the wrapper and see the chocolate, ingraved is mao zedongs face. You snap a piece off and slowly chew it.")
@@ -192,7 +208,9 @@ def use(item):
 		quit()
 	
 	elif item == "elevator":
-
+		if "elevator keycard" not in inventory:
+			print("You need an Elevator Keycard to use the elevator. You exit the elevator.")
+			return
 		floor = input("Which floor? (0,1,2)\n>")
 		if current_room == administrationblock and inventory.find("elevator key") and floor == "0":
 			print("You flick the elevator key against the reader. It beeps twice and all the dails become green.")
@@ -221,7 +239,7 @@ def use(item):
 		elif current_room not in [administrationblock,mainoffice,ovreceptiondesk]:
 			print("There is no elevator here")
 		else:
-			print("Why didnt it work? It could be because of one of these reasons:\n1. You dont have the correct access to move floors.\n2. the floor that you've selected doesnt exist.\n3. Your on that floor already.")
+			print("That floor does not exist.")
 	
 	else:
 
