@@ -20,7 +20,7 @@ print("-----------------------------------------------------------------------")
 mainoffice = Room("""Your inside a gloomy lobby to the tower that you work at. The smell of plastic fills your nose. There is also an elevator infront of you.""")
 washrooms = Room("""You enter a bathroom stall. It smells awful and all there is to fill in the darkness are some Mao
 zedong propaganda.""")
-officeroom = Room("""A room filled with computers and desks.""")
+officeroom = Room("""A room filled with computers and desks. TIP: You can search the desks, type \"desks\"""")
 administrationblock = Room("""A small room with a single desk and computer on it. Seems quite valuable
 since it has warning sign on it. There is an elevator behind you.""")
 #overseers office part:
@@ -59,7 +59,7 @@ maobar.description = "A small bar of chocolate with Mao zedong's face on it. Ing
 notepad = Item("Note", "note", "notepad", "Notepad")
 notepad.description = "A notepad with most of the pages scribbled with unreadable chinese. One of it says \"EVACUATION: Due to multiple riots, all personnel are to evacuate via the main enterance.\""
 
-helicopterkey = Item("Helicopter Key", "helicopter key", "chopper", "H K")
+helicopterkey = Item("helicopter key", "chopper", "H K")
 helicopterkey.description = "A metallic key with the keychain saying \"HELICOPTER\"."
 
 pin = Item("pin","code","Pin","Code")
@@ -170,8 +170,8 @@ def inventory_look():
 		print(item)
 
 def chinaman():
-	print("You hear loud banging on the door behind you, looks like the chinese have found you.")
-	time.sleep(30)
+	print("You hear loud banging on the door behind you, looks like the chinese have found you. You have 60 seconds to find what you need and escape!")
+	time.sleep(60)
 	print("You get shot by one of the military members.")
 	print("Cause of death: Multiple gunshots.") 
 	quit()
@@ -200,6 +200,7 @@ def use(item):
 		print("\"INCIDENT599\"\nThe Tiananmen Square protests, known as the June Fourth Incident (Chinese: 六四事件; pinyin: liùsì shìjiàn) in China, were student-led demonstrations held in Tiananmen Square, Beijing during 1989.\nIn what is known as the Tiananmen Square Massacre (Chinese: 天安门大屠杀; pinyin: Tiān'ānmén dà túshā),\ntroops armed with assault rifles and accompanied by tanks fired at the demonstrators and those trying to block the military's advance into Tiananmen Square.\nThe protests started on 15 April and were forcibly suppressed on 4 June when the government declared martial law and sent the People's Liberation Army to occupy parts of central Beijing.\nEstimates of the death toll vary from several hundred to several thousand, with thousands more wounded.\nThe popular national movement inspired by the Beijing protests is sometimes called the '89 Democracy Movement (Chinese: 八九民运; pinyin: Bājiǔ mínyùn) or the Tiananmen Square Incident (Chinese: 天安门事件; pinyin: Tiān'ānmén shìjiàn).\n\nESCAPE: You got your information, its time for you escape using the helicopter, you hear someone banging on the door, the shadows represent some sort of military. They dont look happy.")
 		print("Note from Overseer: \"All personnel are to evacuate all buildings in case of an emergency protest from the Tianamen anti-communist party. Tianamen Square protests are to be renamed to the \'Picnic Incident\'.")
 		used_pin = True
+
 	
 	elif inventory.find(item) and inventory.find(item)==helicopterkey and current_room == helicopter:
 		print("You open the helicopter with the key and enter the cockpit, you flick some switches and start the motor.")
@@ -208,6 +209,7 @@ def use(item):
 		quit()
 	
 	elif item == "elevator":
+		#whole elevator system below took me like months to do. So im happy that it works well.
 		if "elevator keycard" not in inventory:
 			print("You need an Elevator Keycard to use the elevator. You exit the elevator.")
 			return
